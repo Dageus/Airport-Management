@@ -37,7 +37,7 @@
 /* Tipos de Dados */
 
 typedef struct {
-	char id[MAX_CODIGO_AEROPORTO];
+	char *id;
 	char pais[MAX_NOME_PAIS];
 	char cidade[MAX_NOME_CIDADE];
 	int numVoos;
@@ -334,10 +334,10 @@ void bubbleSort(int indexes[], int size, int (*cmpFunc) (int a, int b)) {
 int aeroportoInvalido(char id[]) {
 	int i;
 	
-	if (strlen(id) < 3)
+	if (strlen(id) < 3 || strlen(id) > 5)
 		return TRUE;
 	for (i = 0; id[i] != '\0'; i++)
-		if (!(id[i] >= 'A' && id[i] <= 'Z') || !(id[i] >= 'a' && id[i] <= 'z'))
+		if (!(id[i] >= 'A' && id[i] <= 'Z') && !(id[i] >= 'a' && id[i] <= 'z'))
 			return TRUE;
 	return FALSE;
 }
@@ -354,13 +354,14 @@ int encontraAeroporto(char id[]) {
 
 void adicionaAeroporto() {
 	Aeroporto a;
-	char codigo[6]
+	char codigo[65535];
 
 	leProximaPalavra(codigo);
 	leProximaPalavra(a.pais);
 	lePalavraAteFimDeLinha(a.cidade);
 
-	a.id = (char*) malloc(sizeof(char) * (strelen(codigo) + 1));
+	a.id = (char*) malloc(sizeof(char) * (strlen(codigo) + 1));
+	strcpy(a.id, codigo);
 
 	if (aeroportoInvalido(a.id))
 		printf("invalid airport ID\n");
@@ -369,6 +370,7 @@ void adicionaAeroporto() {
 	else if (encontraAeroporto(a.id) != NAO_EXISTE)
 		printf("duplicate airport\n");
 	else {
+		_aeroportos[_numAeroportos].id = (char*) malloc(sizeof(char) * (strlen(a.id) + 1));
 		strcpy(_aeroportos[_numAeroportos].id, a.id);
 		strcpy(_aeroportos[_numAeroportos].pais, a.pais);
 		strcpy(_aeroportos[_numAeroportos].cidade, a.cidade);
