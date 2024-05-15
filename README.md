@@ -11,12 +11,12 @@ Reservations for a flight can be made with the 'r' command, and are mde up of an
 
 Both Flights and Reservations can be eliminated with the 'e' command.
 
-The 'l' command will list every airport in alphabetical order.
+The `l` command will list every airport in alphabetical order.
 
-If the 'v' command is called with no arguments, it will list every flight in order of creation.
+If the `v` command is called with no arguments, it will list every flight in order of creation.
 
-The 't' command changes the date of the system.
+The `t` command changes the date of the system.
 
-The 'p' command lists every flight with origin in the airport which the command receives, with the hour of parture.
+The `p` command lists every flight with origin in the airport which the command receives, with the hour of parture.
 
-The 'c' command lists every flight with destination in the airport which the command receives, with the hour of arrival.
+The `c` command lists every flight with destination in the airport which the command receives, with the hour of arrival.
